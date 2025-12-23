@@ -1,4 +1,5 @@
 import SolarPowerChart from "@/components/SolarPowerChart";
+import { fetchSolarData } from "@/lib/fetchSolarData";
 
 const mockData = [
   { timestamp: "00:00", power_kw: 0 },
@@ -27,7 +28,8 @@ const mockData = [
   { timestamp: "23:00", power_kw: 0 },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const solarData = await fetchSolarData();
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header with title and nav */}
@@ -72,7 +74,7 @@ export default function Home() {
           {/* Graph container */}
           <div className="bg-zinc-200 rounded-xl p-6">
             <h2 className="text-2xl font-semibold mb-4">Solar Power Production (Today)</h2>
-            <SolarPowerChart data={mockData} />
+            <SolarPowerChart data={solarData} />
           </div>
         </div>
       </main>
